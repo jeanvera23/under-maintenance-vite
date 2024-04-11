@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  under_maintenance:
+    container_name: under_maintenance
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    environment:
+      VIRTUAL_HOST: ${HOST}
+      LETSENCRYPT_HOST: ${HOST}
+      LETSENCRYPT_EMAIL: ${ADMIN_EMAIL}
+      VIRTUAL_PORT: ${APP_PORT}
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    external: true
+
+volumes:
+  certs:
+  vhost:
+  html:
+  acme:
